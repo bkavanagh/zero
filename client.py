@@ -44,9 +44,12 @@ class UdevProcessListener(object):
         subsystem = device.subsystem
         if subsystem not in self.allowed_subsystems:
             return True
+
         devpath = self.get_filtered_devpath(device)
+        ignored_devices = self.rc.zscan('ignore', match=devpath)
+        print ignored_devices
         if devpath:
-            if self.rc.get('ignore:{}'.format(devpath)):
+            if devpath in ignored_devices:
                 return True
             else:
                 if subsystem.startswith('scsi'):
