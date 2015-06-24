@@ -25,6 +25,11 @@ class UdevProcessListener(object):
         con = pyudev.Context()
         mon = pyudev.Monitor.from_netlink(con)
         self.observer = pyudev.MonitorObserver(mon, self.on_change)
+        self.last_updated = time.time()
+
+    @property
+    def deltatime(self):
+        return time.time() - self.last_updated
 
     def start(self):
         self.observer.start()
@@ -44,9 +49,13 @@ class UdevProcessListener(object):
             self.dirty = True
 
     def update(self):
+        self.last_updated = time.time()
+        self.dirty = False
         self.push_event('device')
 
     def force_update(self):
+        self.last_updated = time.time()
+        self.dirty = False
         self.push_event('pull')
 
     def push_event(self, event):
