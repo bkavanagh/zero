@@ -35,8 +35,7 @@ class UdevProcessListener(object):
 
     def on_change(self, action, device):
         if not self.ignore_device(device):
-            pass
-        print action, device
+            self.rc.set(device.get('DEVPATH'), time.time())
 
     def ignore_device(self, device):
         """
