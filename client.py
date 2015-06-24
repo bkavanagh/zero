@@ -47,11 +47,12 @@ class UdevProcessListener(object):
 
         devpath = self.get_filtered_devpath(device)
         print devpath
-        ignored_devices = [x[0] for x in  self.rc.zscan('ignore', match=devpath)[1]]
+        ignored_devices = [x[0] for x in self.rc.zscan('ignore', match=devpath)[1]]
         print ignored_devices
         self.rc.zadd('ignore', '{}'.format(devpath), time.time())
         if devpath:
             if devpath in ignored_devices:
+                print 'I AM IGNORING THIS FUCKING DEVICE'
                 return True
             else:
                 if subsystem.startswith('scsi'):
