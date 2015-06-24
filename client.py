@@ -51,7 +51,7 @@ class UdevProcessListener(object):
             else:
                 if subsystem.startswith('scsi'):
                     self.rc.zadd('ignore', '{}'.format(devpath), time.time())
-        return True
+        return False
 
     def get_filtered_devpath(self, device):
         devpath = device.get('DEVPATH')
