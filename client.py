@@ -30,7 +30,7 @@ class UdevProcessListener(object):
     def start(self):
         self.observer.start()
         while True:
-            self.rc.zremrangebyscore('ignore', 0, time.time() - 60)
+            self.rc.zremrangebyscore('ignore', 0, time.time() - 10)
             time.sleep(1)
 
     def on_change(self, action, device):
