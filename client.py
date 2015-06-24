@@ -30,7 +30,7 @@ class UdevProcessListener(object):
     def start(self):
         self.observer.start()
         while True:
-            pass
+            self.rc.zremrangebyscore('ignore', 0, time.time() - 60)
             time.sleep(1)
 
     def on_change(self, action, device):
@@ -51,7 +51,8 @@ class UdevProcessListener(object):
                 return True
             else:
                 if subsystem.startswith('scsi'):
-                    self.rc.zadd('ignore', '{}'.format(devpath))
+                    self.rc.zadd('ignore', '{}'.format(devpath), time.time())
+
 
     def get_filtered_devpath(self, device):
         devpath = device.get('DEVPATH')
