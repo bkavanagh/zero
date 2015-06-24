@@ -7,7 +7,7 @@ import threading
 import re
 import redis
 
-REDIS_CLIENT = redis.StrictRedis()
+REDIS_CLIENT = redis.Redis()
 hostrex = re.compile('(/.*:.*)?(\/host.*)?')
 
 
