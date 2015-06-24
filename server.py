@@ -6,7 +6,7 @@ import random
 from uuid import uuid4
 port = "5560"
 context = zmq.Context()
-socket = context.socket(zmq.REP)
+socket = context.socket(zmq.SUB)
 socket.connect("tcp://localhost:%s" % port)
 server_id = random.randrange(1,10005)
 while True:
