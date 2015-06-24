@@ -42,10 +42,10 @@ class UdevProcessListener(object):
         filter method for ignoring duplicate change events as seen on scsi block devices (Mount)
         """
         subsystem = device.subsystem
-        print subsystem
+
         if subsystem not in self.allowed_subsystems:
             return True
-
+        print 'ALLOWED SUB : {}'.format(subsystem)
         devpath = self.get_filtered_devpath(device)
         print devpath
         ignored_devices = [x[0] for x in self.rc.zscan('ignore', match=devpath)[1]]
