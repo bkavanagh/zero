@@ -56,7 +56,8 @@ class UdevProcessListener(object):
                 return True
             else:
                 print 'I AM NOT IGNORING THIS DEVICE: {}'.format(subsystem)
-                self.rc.zadd('ignore', '{}'.format(devpath), time.time())
+                if subsystem in ['scsi', 'scsi_host']:
+                    self.rc.zadd('ignore', '{}'.format(devpath), time.time())
         return False
 
     def get_filtered_devpath(self, device):
