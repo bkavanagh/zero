@@ -35,7 +35,7 @@ class UdevProcessListener(object):
 
     def on_change(self, action, device):
         if not self.ignore_device(device):
-            self.rc.set(device.get('DEVPATH'), time.time())
+            pass
 
     def ignore_device(self, device):
         """
@@ -46,6 +46,7 @@ class UdevProcessListener(object):
             return True
 
         devpath = self.get_filtered_devpath(device)
+        print devpath
         ignored_devices = self.rc.zscan('ignore', match=devpath)
         print ignored_devices
         self.rc.zadd('ignore', '{}'.format(devpath), time.time())
