@@ -47,6 +47,7 @@ class UdevProcessListener(object):
             return True
         print 'ALLOWED SUB : {}'.format(subsystem)
         devpath = self.get_filtered_devpath(device)
+        print 'filtered devpath = {}'.format(devpath)
         print devpath
         ignored_devices = [x[0] for x in self.rc.zscan('ignore', match=devpath)[1]]
         print ignored_devices
@@ -62,6 +63,7 @@ class UdevProcessListener(object):
 
     def get_filtered_devpath(self, device):
         devpath = device.get('DEVPATH')
+        print 'FILTERING: {}'.format(devpath)
         if devpath:
             return self.devpath_regex.sub('', devpath).strip()
         return devpath
