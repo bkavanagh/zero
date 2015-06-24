@@ -30,7 +30,7 @@ class UdevProcessListener(object):
     def start(self):
         self.observer.start()
         while True:
-            self.rc.zremrangebyscore('ignore', 0, time.time() - 10)
+            self.rc.zremrangebyscore('ignore', 0, time.time() - 60)
             time.sleep(1)
 
     def on_change(self, action, device):
@@ -56,7 +56,6 @@ class UdevProcessListener(object):
                 return True
             else:
                 print 'I AM NOT IGNORING THIS DEVICE'
-
                 if subsystem.startswith('scsi'):
                     self.rc.zadd('ignore', '{}'.format(devpath), time.time())
         return False
