@@ -22,7 +22,7 @@ class UdevProcessListener(object):
 
     def __init__(self, qkey=None):
         self.qkey = qkey
-        self.rc = redis.StrictRedis()
+        self.rc = redis.Redis()
         con = pyudev.Context()
         mon = pyudev.Monitor.from_netlink(con)
         self.observer = pyudev.MonitorObserver(mon, self.on_change)
