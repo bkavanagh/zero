@@ -47,7 +47,7 @@ class UdevProcessListener(object):
 
         devpath = self.get_filtered_devpath(device)
         print devpath
-        ignored_devices = self.rc.zscan('ignore', match=devpath)
+        ignored_devices = [x[0] for x in  self.rc.zscan('ignore', match=devpath)[1]]
         print ignored_devices
         self.rc.zadd('ignore', '{}'.format(devpath), time.time())
         if devpath:
